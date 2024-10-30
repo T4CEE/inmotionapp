@@ -1,15 +1,39 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import Header from "./Header";
+import ScrollToTop from "./ScrollToTop";
+import Footer from "./Footer";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+// const geistSans = localFont({
+//   src: "./fonts/GeistVF.woff",
+//   variable: "--font-geist-sans",
+//   weight: "100 900",
+// });
+
+const NeueMontreal = localFont({
+  src: "./fonts/NeueMontreal-Regular.otf",
+  weight: "100 700",
+  variable: "--font-NeueMontreal",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const NeueMontrealLight = localFont({
+  src: "./fonts/NeueMontreal-Light.otf",
+  weight: "100 700",
+  variable: "--font-NeueMontrealLight",
+});
+const NeueMontrealBold = localFont({
+  src: "./fonts/NeueMontreal-Bold.otf",
+  weight: "100 700",
+  variable: "--font-NeueMontrealBold",
+});
+const NeueMontrealItalic = localFont({
+  src: "./fonts/NeueMontreal-Italic.otf",
+  weight: "100 700",
+  variable: "--font-NeueMontrealItalic",
+});
+const NeueMontrealMedium = localFont({
+  src: "./fonts/NeueMontreal-Medium.otf",
+  weight: "100 700",
+  variable: "--font-NeueMontrealMedium",
 });
 
 export const metadata = {
@@ -20,10 +44,36 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <title className="font-bold">In-Motion Business</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
+        <meta name="description" content="Connection to the scriptures" />
+        <link rel="icon" href="./favicon.ico" sizes="any" />
+        <link
+          rel="icon"
+          href="./icon.png?<generated>"
+          type="image/<generated>"
+          sizes="<generated>"
+          content="#000000"
+        />
+        <link
+          rel="apple-touch-icon"
+          href="./apple-icon.png?<generated>"
+          type="image/<generated>"
+          sizes="<generated>"
+          content="#000000"
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${NeueMontreal.variable} ${NeueMontrealLight.variable} ${NeueMontrealBold.variable} ${NeueMontrealMedium.variable} ${NeueMontrealItalic.variable} antialiased`}
       >
-        {children}
+        <div className="relative">
+          {/* <ScrollToTop /> */}
+          {/* <Header /> */}
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );

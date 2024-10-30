@@ -3,19 +3,52 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary-color: #F6F6F6; /* Light primary */
+  --secondary-color: #ffffff; /* Light secondary */
+  --background-color: #F6F6F6; /* Light background */
+  --text-color: #000000; /* Light text */
+  --border-color: #e0e0e0; /* Light border */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --primary-color: #20232a; /* Dark primary */
+  --secondary-color: #20232a; /* Dark secondary */
+  --background-color: #20232a; /* Dark background */
+  --text-color: #ffffff; /* Dark text */
+  --border-color: #374151; /* Dark border */
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.message {
+  position: fixed;
+  z-index: 100;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  margin: 0 auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  text-align: center;
+  font-size: 1em;
+  color: #333;
+}
+
+.message.success {
+  border-color: #4caf50;
+  background-color: #cce5ff; 
+  color: #004085; 
+}
+
+.message.error {
+  border-color: #f44336;
+  background-color: #f8d7da;
+  color: #721c24;
 }

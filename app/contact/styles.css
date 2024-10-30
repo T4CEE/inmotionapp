@@ -1,0 +1,28 @@
+.message {
+    position: fixed;
+    z-index: 100;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center;
+    font-size: 1em;
+    color: #333;
+  }
+  
+  .message.success {
+    border-color: #4caf50;
+    background-color: #cce5ff; 
+    color: #004085; 
+  }
+  
+  .message.error {
+    border-color: #f44336;
+    background-color: #f8d7da;
+    color: #721c24;
+  }
