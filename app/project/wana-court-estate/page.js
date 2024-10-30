@@ -23,11 +23,11 @@ import { BsSignpost2 } from "react-icons/bs";
 import WanaPricingTable from "@/app/WanaPricingTable";
 import Image from "next/image";
 import { useState } from "react";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 
-const MapWithNoSSR = dynamic(() => import("@/app/Map"), {
-  ssr: false,
-});
+// const MapWithNoSSR = dynamic(() => import("@/app/Map"), {
+//   ssr: false,
+// });
 
 const WanaProject = () => {
   const [downloadStatus, setDownloadStatus] = useState("");
