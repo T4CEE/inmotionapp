@@ -70,7 +70,7 @@ export default function RootLayout({ children }) {
       >
         <div className="relative">
           {/* <ScrollToTop /> */}
-          {/* <Header /> */}
+          <Header />
           {children}
           <Footer />
         </div>

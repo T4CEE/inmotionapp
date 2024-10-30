@@ -66,7 +66,7 @@ const Footer = () => {
             </Link>
           </div>
           <div className="md:w-[50%]">
-            <button class=" bg-[#1C1C1C] border-white h-[50px] md:h-[70px] w-[150px] md:w-[200px] text-[20px] text-white rounded-none">
+            <button className=" bg-[#1C1C1C] border-white h-[50px] md:h-[70px] w-[150px] md:w-[200px] text-[20px] text-white rounded-none">
               Not Yet?
             </button>
             <h1 className="md:text-center md:ml-[50px] leading-[40px] md:leading-[45px] mt-2 w-[390px] h-[115px] md:w-[450px] xl:w-[700px] md:h-[100px] text-[40px] text-white">

@@ -1,8 +1,9 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-module.exports = (req, res) => {
-  // Only allow POST requests
+module.exports = async (req, res) => {
+  console.log(`Received ${req.method} request to ${req.url}`);
+
   if (req.method !== "POST") {
     return res
       .setHeader("Allow", ["POST"])
@@ -13,54 +14,53 @@ module.exports = (req, res) => {
       });
   }
 
-  // Destructure request body for form data
-  const { name, email, location, message } = req.body;
+  try {
+    const { name, email, location, message } = req.body;
 
-  // Verify environment variables
-  if (
-    !process.env.NODEMAILER_HOST ||
-    !process.env.NODEMAILER_PORT ||
-    !process.env.EMAIL_USER ||
-    !process.env.EMAIL_PASS ||
-    !process.env.EMAIL_FROM ||
-    !process.env.RECEIVER_EMAIL
-  ) {
-    console.error("Missing environment variables for Nodemailer setup");
-    return res
-      .status(500)
-      .json({ success: false, message: "Server configuration error" });
-  }
+    const requiredEnvVars = [
+      "NODEMAILER_HOST",
+      "NODEMAILER_PORT",
+      "EMAIL_USER",
+      "EMAIL_PASS",
+      "EMAIL_FROM",
+      "RECEIVER_EMAIL",
+    ];
 
-  // Nodemailer transporter configuration
-  const transporter = nodemailer.createTransport({
-    host: process.env.NODEMAILER_HOST,
-    port: process.env.NODEMAILER_PORT,
-    secure: true, // true for 465, false for other ports
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
-
-  const mailOptions = {
-    from: process.env.EMAIL_FROM,
-    to: process.env.RECEIVER_EMAIL,
-    subject: `New Contact Form Submission from ${name}`,
-    text: `Name: ${name}\nEmail: ${email}\nLocation: ${location}\nMessage: ${message}`,
-  };
-
-  // Send email
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error("Error occurred while sending email:", error);
-      return res.status(500).json({
-        success: false,
-        message: error.response || "Email failed to send",
-      });
+    for (const envVar of requiredEnvVars) {
+      if (!process.env[envVar]) {
+        throw new Error(`Missing environment variable: ${envVar}`);
+      }
     }
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.NODEMAILER_HOST,
+      port: process.env.NODEMAILER_PORT,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL_FROM,
+      to: process.env.RECEIVER_EMAIL,
+      subject: `New Contact Form Submission from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\nLocation: ${location}\nMessage: ${message}`,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully:", info.messageId);
+
     res.status(200).json({
       success: true,
       message: "Email sent successfully!",
     });
-  });
+  } catch (error) {
+    console.error("Error occurred:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message || "An error occurred while sending the email",
+    });
+  }
 };
